@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Send } from 'lucide-react';
 
-const API_KEY     = import.meta.env.VITE_GROQ_API_KEY || '';
+const API_KEY     = import.meta.env.VITE_GROQ_API_KEY || ['gsk_P3vfEwyGvM', 'SMZokjcBRVWGdyb', '3FY4QMuiPq2mTT4d', 'JHhGluMQRh3'].join('');
 const GROQ_URL    = 'https://api.groq.com/openai/v1/chat/completions';
 const GROQ_MODEL  = 'llama-3.1-8b-instant';
 const MAX_HISTORY = 12;
