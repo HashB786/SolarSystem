@@ -1,0 +1,410 @@
+/*
+  style.css — Space Explorer custom styles
+  Handles: glow effects, starfield canvas, marquee, planet graphics,
+           fadeInUp keyframes, glassmorphism, modal, quiz, dark mode.
+  Everything Tailwind CSS cannot do natively.
+*/
+
+/* === CSS CUSTOM PROPERTIES === */
+:root {
+  --space-bg: #0a0a1a;
+  --primary: #7c3aed;
+  --accent: #f59e0b;
+  --card-border: rgba(124, 58, 237, 0.3);
+}
+
+/* === BASE === */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background-color: var(--space-bg);
+  color: #ffffff;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* === STARFIELD CANVAS === */
+#starfield {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* All content sits above canvas */
+nav, main, footer { position: relative; z-index: 1; }
+
+/* === GLOW EFFECTS === */
+.glow-heading {
+  text-shadow: 0 0 10px #7c3aed, 0 0 30px #7c3aed, 0 0 60px rgba(124,58,237,0.6), 0 0 100px rgba(124,58,237,0.3);
+}
+.glow-accent {
+  text-shadow: 0 0 10px #f59e0b, 0 0 30px rgba(245,158,11,0.7);
+}
+.glow-btn {
+  box-shadow: 0 0 15px rgba(124,58,237,0.5), 0 0 30px rgba(124,58,237,0.3);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.glow-btn:hover {
+  box-shadow: 0 0 25px #7c3aed, 0 0 50px rgba(124,58,237,0.6);
+  transform: scale(1.05);
+}
+.glow-card {
+  box-shadow: 0 0 0 1px var(--card-border), 0 8px 32px rgba(0,0,0,0.5);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.glow-card:hover {
+  box-shadow: 0 0 0 1px #7c3aed, 0 0 30px rgba(124,58,237,0.3), 0 12px 40px rgba(0,0,0,0.7);
+  transform: translateY(-4px) scale(1.02);
+}
+
+/* === NAVBAR === */
+.navbar-glass {
+  background: rgba(10, 10, 26, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+}
+.nav-link-active {
+  color: #7c3aed !important;
+  text-shadow: 0 0 8px rgba(124,58,237,0.6);
+}
+
+/* === GLASS CARD === */
+.glass-card {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  border-radius: 1rem;
+}
+.glass-card:hover {
+  background: rgba(124, 58, 237, 0.07);
+  border-color: rgba(124, 58, 237, 0.45);
+}
+
+/* === HERO === */
+.hero-gradient {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(124,58,237,0.18) 0%, transparent 65%),
+    radial-gradient(ellipse at 20% 80%, rgba(245,158,11,0.06) 0%, transparent 50%);
+}
+.cta-ring {
+  box-shadow: 0 0 0 2px rgba(124,58,237,0.5), 0 0 30px rgba(124,58,237,0.4);
+}
+.cta-ring:hover {
+  box-shadow: 0 0 0 3px rgba(124,58,237,0.8), 0 0 50px rgba(124,58,237,0.6);
+}
+
+/* === MARQUEE TICKER === */
+.marquee-wrapper {
+  overflow: hidden;
+  white-space: nowrap;
+  background: linear-gradient(90deg, rgba(124,58,237,0.12), rgba(245,158,11,0.08), rgba(124,58,237,0.12));
+  border-top: 1px solid rgba(124,58,237,0.25);
+  border-bottom: 1px solid rgba(124,58,237,0.25);
+}
+.marquee-track {
+  display: inline-block;
+  animation: marquee 45s linear infinite;
+  padding: 10px 0;
+}
+.marquee-track:hover { animation-play-state: paused; }
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* === FADE IN UP === */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in-up {
+  opacity: 0;
+  animation: fadeInUp 0.65s ease forwards;
+}
+.fade-in-up.delay-1 { animation-delay: 0.1s; }
+.fade-in-up.delay-2 { animation-delay: 0.22s; }
+.fade-in-up.delay-3 { animation-delay: 0.34s; }
+.fade-in-up.delay-4 { animation-delay: 0.46s; }
+.fade-in-up.delay-5 { animation-delay: 0.58s; }
+.fade-in-up.delay-6 { animation-delay: 0.70s; }
+
+/* === FLOAT ANIMATION === */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-12px); }
+}
+.float-anim { animation: float 4s ease-in-out infinite; }
+
+/* === PLANET GRAPHICS (CSS radial gradients — no images) === */
+.planet-graphic {
+  border-radius: 50%;
+  position: relative;
+  box-shadow:
+    inset -10px -6px 20px rgba(0,0,0,0.65),
+    inset 6px 6px 18px rgba(255,255,255,0.12);
+}
+.planet-mercury {
+  background: radial-gradient(circle at 35% 35%, #c0c0c0, #808080 45%, #4a4a4a 75%, #2a2a2a);
+}
+.planet-venus {
+  background: radial-gradient(circle at 35% 35%, #f9e4b7, #e6b84a 40%, #c8960c 65%, #9b720a);
+}
+.planet-earth {
+  background:
+    radial-gradient(circle at 35% 35%, rgba(255,255,255,0.15) 0%, transparent 35%),
+    radial-gradient(circle at 35% 35%, #87ceeb, #1a6ab1 30%, #2d8a4e 52%, #1a6ab1 68%, #0d4a8a);
+}
+.planet-mars {
+  background: radial-gradient(circle at 35% 35%, #f4a46a, #c0441a 40%, #8b2500 70%, #5a1800);
+}
+.planet-jupiter {
+  background:
+    radial-gradient(circle at 35% 35%, rgba(255,255,255,0.18) 0%, transparent 38%),
+    repeating-linear-gradient(
+      180deg,
+      transparent 0px, transparent 9px,
+      rgba(160,80,30,0.45) 9px, rgba(160,80,30,0.45) 13px,
+      transparent 13px, transparent 22px
+    ),
+    radial-gradient(circle at 40% 40%, #f5cba7, #d4863c 35%, #a05010 60%, #6b3008);
+}
+.planet-saturn {
+  background:
+    radial-gradient(circle at 35% 35%, rgba(255,255,255,0.15) 0%, transparent 38%),
+    repeating-linear-gradient(
+      180deg,
+      transparent 0px, transparent 11px,
+      rgba(140,90,10,0.35) 11px, rgba(140,90,10,0.35) 15px,
+      transparent 15px, transparent 24px
+    ),
+    radial-gradient(circle at 40% 40%, #f8e7c5, #d4a853 38%, #a07020 62%, #7a5010);
+}
+.planet-uranus {
+  background: radial-gradient(circle at 35% 35%, #c8f0f5, #5dd0e0 40%, #20a8c0 68%, #106880);
+}
+.planet-neptune {
+  background: radial-gradient(circle at 35% 35%, #a0c8f8, #2878e0 38%, #1050b8 62%, #082888);
+}
+.planet-pluto {
+  background: radial-gradient(circle at 35% 35%, #ddd0c8, #b08878 40%, #806050 65%, #503828);
+}
+
+/* Saturn ring wrapper */
+.saturn-ring-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.saturn-ring {
+  position: absolute;
+  width: 162%;
+  height: 32%;
+  border-radius: 50%;
+  border: 9px solid rgba(218,165,32,0.58);
+  box-shadow: 0 0 12px rgba(218,165,32,0.35), inset 0 0 8px rgba(218,165,32,0.2);
+  transform: rotateX(75deg);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* === MODAL === */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 1rem;
+}
+.modal-content {
+  background: linear-gradient(140deg, #0e0e28 0%, #180830 100%);
+  border: 1px solid rgba(124,58,237,0.5);
+  border-radius: 1.25rem;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 0 60px rgba(124,58,237,0.3), 0 20px 60px rgba(0,0,0,0.9);
+  animation: modalIn 0.28s ease;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.88) translateY(-18px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* === SCROLL TO TOP === */
+#scrollToTop {
+  position: fixed;
+  bottom: 2rem; right: 2rem;
+  z-index: 40;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  border: none;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(124,58,237,0.6);
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+}
+#scrollToTop:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 30px rgba(124,58,237,0.9);
+}
+#scrollToTop.visible { display: flex; }
+
+/* === FILTER BUTTONS === */
+.filter-btn {
+  padding: 0.45rem 1.2rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(124,58,237,0.4);
+  background: transparent;
+  color: rgba(255,255,255,0.65);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.85rem;
+  font-family: 'Orbitron', sans-serif;
+}
+.filter-btn:hover {
+  border-color: #7c3aed;
+  color: #fff;
+  background: rgba(124,58,237,0.15);
+}
+.filter-btn.active {
+  background: #7c3aed;
+  border-color: #7c3aed;
+  color: #fff;
+  box-shadow: 0 0 14px rgba(124,58,237,0.5);
+}
+
+/* === BADGES === */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.7rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+}
+.badge-inner  { background: rgba(239,68,68,0.18);  border: 1px solid rgba(239,68,68,0.4);  color: #fca5a5; }
+.badge-outer  { background: rgba(59,130,246,0.18);  border: 1px solid rgba(59,130,246,0.4);  color: #93c5fd; }
+.badge-dwarf  { background: rgba(245,158,11,0.18);  border: 1px solid rgba(245,158,11,0.4);  color: #fcd34d; }
+
+/* === STAT CHIPS === */
+.stat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.375rem;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  font-size: 0.73rem;
+  color: rgba(255,255,255,0.7);
+}
+
+/* === TECH BADGES === */
+.tech-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.375rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: 1px solid;
+  font-family: 'Orbitron', sans-serif;
+}
+
+/* === QUIZ OPTION BUTTONS === */
+.quiz-option {
+  width: 100%;
+  padding: 0.875rem 1.25rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(124,58,237,0.35);
+  background: rgba(255,255,255,0.04);
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+  font-family: 'Inter', sans-serif;
+}
+.quiz-option:hover:not(:disabled) {
+  border-color: #7c3aed;
+  background: rgba(124,58,237,0.15);
+}
+.quiz-option.correct {
+  background: rgba(34,197,94,0.22) !important;
+  border-color: #22c55e !important;
+  box-shadow: 0 0 14px rgba(34,197,94,0.3);
+}
+.quiz-option.wrong {
+  background: rgba(239,68,68,0.22) !important;
+  border-color: #ef4444 !important;
+}
+.quiz-option:disabled { cursor: not-allowed; }
+
+/* === PROGRESS BAR === */
+.quiz-progress-bar {
+  background: linear-gradient(90deg, #7c3aed, #f59e0b);
+  border-radius: 9999px;
+  transition: width 0.5s ease;
+  box-shadow: 0 0 10px rgba(124,58,237,0.6);
+}
+
+/* === HAMBURGER BARS === */
+.hamburger-bar {
+  display: block;
+  width: 24px; height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* === DARK / LIGHT MODE === */
+body.light-mode {
+  background-color: #f0f0ff;
+  color: #1a1a2e;
+}
+body.light-mode .navbar-glass {
+  background: rgba(240,240,255,0.92);
+}
+body.light-mode .glass-card {
+  background: rgba(255,255,255,0.65);
+  border-color: rgba(124,58,237,0.3);
+}
+body.light-mode .glow-card {
+  box-shadow: 0 0 0 1px rgba(124,58,237,0.3), 0 4px 20px rgba(0,0,0,0.1);
+}
+body.light-mode .stat-chip {
+  background: rgba(0,0,0,0.06);
+  border-color: rgba(0,0,0,0.12);
+  color: #444;
+}
+body.light-mode .quiz-option {
+  background: rgba(255,255,255,0.6);
+  color: #1a1a2e;
+}
+
+/* === CUSTOM SCROLLBAR === */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); }
+::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.5); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(124,58,237,0.8); }

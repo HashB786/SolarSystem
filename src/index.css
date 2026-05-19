@@ -1,0 +1,328 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =====================================================
+   CUSTOM CSS — anything Tailwind can't do natively
+===================================================== */
+
+/* === BASE === */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: #0a0a1a;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Subtle nebula background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 15%, rgba(124,58,237,0.09) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 80%, rgba(245,158,11,0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* === GLOW === */
+.glow-heading {
+  text-shadow:
+    0 0 10px #7c3aed,
+    0 0 30px #7c3aed,
+    0 0 60px rgba(124,58,237,0.6),
+    0 0 100px rgba(124,58,237,0.25);
+}
+.glow-accent {
+  text-shadow: 0 0 10px #f59e0b, 0 0 25px rgba(245,158,11,0.7);
+}
+.glow-btn-shadow {
+  box-shadow: 0 0 18px rgba(124,58,237,0.55), 0 0 36px rgba(124,58,237,0.25);
+}
+.glow-btn-shadow:hover {
+  box-shadow: 0 0 28px rgba(124,58,237,0.8), 0 0 55px rgba(124,58,237,0.4);
+}
+.glow-card-shadow {
+  box-shadow: 0 0 0 1px rgba(124,58,237,0.25), 0 8px 32px rgba(0,0,0,0.5);
+}
+.glow-card-shadow:hover {
+  box-shadow: 0 0 0 1px #7c3aed, 0 0 30px rgba(124,58,237,0.3), 0 12px 40px rgba(0,0,0,0.7);
+}
+
+/* === GLASSMORPHISM === */
+.glass {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(124,58,237,0.25);
+}
+.glass:hover {
+  background: rgba(124,58,237,0.07);
+  border-color: rgba(124,58,237,0.45);
+}
+
+/* === NAVBAR === */
+.navbar-glass {
+  background: rgba(10,10,26,0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(124,58,237,0.2);
+}
+
+/* === MARQUEE === */
+.marquee-wrapper {
+  overflow: hidden;
+  white-space: nowrap;
+  background: linear-gradient(90deg,
+    rgba(124,58,237,0.12),
+    rgba(245,158,11,0.08),
+    rgba(124,58,237,0.12));
+  border-top:    1px solid rgba(124,58,237,0.22);
+  border-bottom: 1px solid rgba(124,58,237,0.22);
+}
+.marquee-track { display: inline-block; }
+.marquee-track:hover { animation-play-state: paused; }
+
+/* === PLANET GRAPHICS (pure CSS, no images) === */
+.planet-base {
+  border-radius: 50%;
+  box-shadow:
+    inset -12px -8px 24px rgba(0,0,0,0.7),
+    inset 8px 8px 20px rgba(255,255,255,0.14),
+    0 0 18px rgba(0,0,0,0.4);
+  flex-shrink: 0;
+}
+
+.planet-mercury {
+  background:
+    radial-gradient(circle at 28% 28%, rgba(255,255,255,0.12) 0%, transparent 30%),
+    radial-gradient(circle at 65% 55%, rgba(0,0,0,0.25) 0%, transparent 25%),
+    radial-gradient(circle at 40% 70%, rgba(0,0,0,0.2) 0%, transparent 20%),
+    radial-gradient(circle at 35% 35%, #d0d0d0, #909090 40%, #555 70%, #2e2e2e);
+}
+
+.planet-venus {
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255,255,255,0.18) 0%, transparent 32%),
+    repeating-linear-gradient(
+      168deg,
+      transparent 0px, transparent 7px,
+      rgba(200,140,10,0.28) 7px, rgba(200,140,10,0.28) 10px,
+      transparent 10px, transparent 17px
+    ),
+    radial-gradient(circle at 38% 38%, #fce8b0, #e8c050 35%, #c89018 60%, #9e6e08);
+}
+
+.planet-earth {
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255,255,255,0.18) 0%, transparent 32%),
+    radial-gradient(ellipse at 22% 38%, #2d8a4e 0%, transparent 28%),
+    radial-gradient(ellipse at 55% 42%, #2d8a4e 0%, transparent 22%),
+    radial-gradient(ellipse at 72% 38%, #2d8a4e 0%, transparent 30%),
+    radial-gradient(ellipse at 26% 65%, #2d8a4e 0%, transparent 18%),
+    radial-gradient(circle at 35% 35%, #87ceeb, #1a6ab1 25%, #0e4a8a 58%, #082866);
+}
+
+.planet-mars {
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255,200,180,0.2) 0%, transparent 32%),
+    radial-gradient(circle at 62% 58%, rgba(100,20,5,0.3) 0%, transparent 22%),
+    radial-gradient(circle at 38% 68%, rgba(80,15,5,0.25) 0%, transparent 18%),
+    radial-gradient(circle at 35% 35%, #f4a46a, #c0441a 38%, #8b2500 68%, #4a1200);
+}
+
+.planet-jupiter {
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255,255,255,0.2) 0%, transparent 35%),
+    radial-gradient(ellipse at 36% 62%, rgba(160,50,10,0.6) 0%, transparent 14%),
+    repeating-linear-gradient(
+      180deg,
+      transparent 0px, transparent 8px,
+      rgba(150,72,20,0.5) 8px, rgba(150,72,20,0.5) 13px,
+      transparent 13px, transparent 20px
+    ),
+    radial-gradient(circle at 40% 38%, #f8d0a8, #d4863c 32%, #a05010 58%, #5e2a06);
+}
+
+.planet-saturn {
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255,255,255,0.16) 0%, transparent 35%),
+    repeating-linear-gradient(
+      180deg,
+      transparent 0px, transparent 10px,
+      rgba(130,82,8,0.38) 10px, rgba(130,82,8,0.38) 14px,
+      transparent 14px, transparent 23px
+    ),
+    radial-gradient(circle at 40% 38%, #fceec8, #d4a853 36%, #a07020 60%, #7a5010);
+}
+
+.planet-uranus {
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255,255,255,0.2) 0%, transparent 35%),
+    repeating-linear-gradient(
+      180deg,
+      transparent 0px, transparent 12px,
+      rgba(100,220,230,0.15) 12px, rgba(100,220,230,0.15) 15px,
+      transparent 15px, transparent 26px
+    ),
+    radial-gradient(circle at 38% 35%, #d0f4f8, #5dd0e0 38%, #20a8c0 65%, #0e7090);
+}
+
+.planet-neptune {
+  background:
+    radial-gradient(circle at 30% 28%, rgba(180,210,255,0.22) 0%, transparent 32%),
+    radial-gradient(ellipse at 60% 40%, rgba(5,15,80,0.55) 0%, transparent 18%),
+    repeating-linear-gradient(
+      180deg,
+      transparent 0px, transparent 10px,
+      rgba(30,60,180,0.2) 10px, rgba(30,60,180,0.2) 13px,
+      transparent 13px, transparent 22px
+    ),
+    radial-gradient(circle at 35% 35%, #a0c8f8, #2060d8 36%, #1040b0 60%, #061e70);
+}
+
+.planet-pluto {
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255,255,255,0.12) 0%, transparent 30%),
+    radial-gradient(ellipse at 54% 60%, rgba(220,205,190,0.45) 0%, transparent 26%),
+    radial-gradient(circle at 35% 35%, #e0d0c5, #b08878 38%, #806050 63%, #503828);
+}
+
+/* Saturn ring wrapper */
+.saturn-ring-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.saturn-ring {
+  position: absolute;
+  width: 162%;
+  height: 32%;
+  border-radius: 50%;
+  border: 9px solid rgba(218,165,32,0.62);
+  box-shadow: 0 0 14px rgba(218,165,32,0.35), inset 0 0 8px rgba(218,165,32,0.2);
+  transform: rotateX(75deg);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* === BADGES === */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.18rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+}
+.badge-inner { background: rgba(239,68,68,0.18);  border: 1px solid rgba(239,68,68,0.4);  color: #fca5a5; }
+.badge-outer { background: rgba(59,130,246,0.18);  border: 1px solid rgba(59,130,246,0.4);  color: #93c5fd; }
+.badge-dwarf { background: rgba(245,158,11,0.18);  border: 1px solid rgba(245,158,11,0.4);  color: #fcd34d; }
+
+/* === STAT CHIPS === */
+.stat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.18rem 0.55rem;
+  border-radius: 0.375rem;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.7);
+}
+
+/* === TECH BADGES (about page) === */
+.tech-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.9rem;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: 'Orbitron', sans-serif;
+  border: 1px solid;
+}
+
+/* === QUIZ OPTIONS === */
+.quiz-option {
+  width: 100%;
+  padding: 0.9rem 1.2rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(124,58,237,0.35);
+  background: rgba(255,255,255,0.04);
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.18s, background 0.18s;
+  font-size: 0.95rem;
+  font-family: 'Inter', sans-serif;
+}
+.quiz-option:hover:not(:disabled) {
+  border-color: #7c3aed;
+  background: rgba(124,58,237,0.14);
+}
+.quiz-option.correct {
+  background: rgba(34,197,94,0.22) !important;
+  border-color: #22c55e !important;
+  box-shadow: 0 0 16px rgba(34,197,94,0.3);
+}
+.quiz-option.wrong {
+  background: rgba(239,68,68,0.22) !important;
+  border-color: #ef4444 !important;
+}
+.quiz-option:disabled { cursor: not-allowed; }
+
+/* === PROGRESS BAR === */
+.progress-bar-inner {
+  background: linear-gradient(90deg, #7c3aed, #f59e0b);
+  border-radius: 9999px;
+  transition: width 0.5s ease;
+  box-shadow: 0 0 10px rgba(124,58,237,0.6);
+}
+
+/* === MODAL === */
+.modal-content {
+  background: linear-gradient(140deg, #0e0e28 0%, #180830 100%);
+  border: 1px solid rgba(124,58,237,0.5);
+  border-radius: 1.25rem;
+  box-shadow: 0 0 70px rgba(124,58,237,0.3), 0 20px 60px rgba(0,0,0,0.9);
+}
+
+/* === HERO GRADIENT === */
+.hero-gradient {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(124,58,237,0.2) 0%, transparent 65%),
+    radial-gradient(ellipse at 20% 90%, rgba(245,158,11,0.07) 0%, transparent 50%);
+}
+
+/* === CUSTOM SCROLLBAR === */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); }
+::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.5); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(124,58,237,0.82); }
+
+/* === LIGHT MODE === */
+html.light-mode body { background-color: #f0f0ff; color: #1a1a2e; }
+html.light-mode body::before { opacity: 0.4; }
+html.light-mode .navbar-glass { background: rgba(240,240,255,0.92); }
+html.light-mode .glass {
+  background: rgba(255,255,255,0.65);
+  border-color: rgba(124,58,237,0.3);
+}
+html.light-mode .glass:hover { background: rgba(255,255,255,0.8); }
+html.light-mode .stat-chip { background: rgba(0,0,0,0.06); border-color: rgba(0,0,0,0.12); color: #444; }
+html.light-mode .quiz-option { background: rgba(255,255,255,0.6); color: #1a1a2e; }
+
+/* Content above the fixed starfield canvas */
+nav, footer { position: relative; z-index: 2; }
+main { z-index: 1; }

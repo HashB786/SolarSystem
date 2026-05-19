@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<!--
+  about.html — Space Explorer About Page
+  Sections: project vision, how it was built (4 tech cards), technology badges,
+            "What I Learned" bullet list, closing note.
+  Helps the student explain design/implementation choices during presentation.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="About Space Explorer — the technologies used and what was learned building it." />
+  <title>Space Explorer — About</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            space:   '#0a0a1a',
+            primary: '#7c3aed',
+            accent:  '#f59e0b',
+          },
+          fontFamily: {
+            heading: ['Orbitron', 'sans-serif'],
+            body:    ['Inter', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+</head>
+<body class="bg-space font-body text-white min-h-screen">
+
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <!-- ======================================================
+       NAVBAR
+  ====================================================== -->
+  <nav class="navbar-glass fixed top-0 left-0 right-0 z-20 px-4 md:px-8" aria-label="Main navigation">
+    <div class="max-w-7xl mx-auto flex items-center justify-between h-16">
+
+      <a href="index.html" class="font-heading font-black text-lg flex items-center gap-2" aria-label="Space Explorer — Home">
+        <span class="text-2xl" aria-hidden="true">🚀</span>
+        <span class="glow-accent">Space</span><span class="text-purple-400">Explorer</span>
+      </a>
+
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html"   class="font-heading text-sm text-gray-300 hover:text-purple-400 transition-colors font-bold">Home</a>
+        <a href="planets.html" class="font-heading text-sm text-gray-300 hover:text-purple-400 transition-colors font-bold">Planets</a>
+        <a href="quiz.html"    class="font-heading text-sm text-gray-300 hover:text-purple-400 transition-colors font-bold">Quiz</a>
+        <a href="about.html"   class="nav-link-active font-heading text-sm font-bold" aria-current="page">About</a>
+        <button class="dark-mode-toggle text-xl hover:scale-110 transition-transform" aria-label="Toggle dark/light mode">☀️</button>
+      </div>
+
+      <div class="flex md:hidden items-center gap-3">
+        <button class="dark-mode-toggle text-xl" aria-label="Toggle dark/light mode">☀️</button>
+        <button id="hamburger-btn" class="flex flex-col gap-1.5 p-2" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="hidden md:hidden pb-4 px-2">
+      <div class="glass-card p-4 mt-2 flex flex-col gap-3">
+        <a href="index.html"   class="font-heading text-sm text-gray-300 hover:text-purple-400 transition-colors">Home</a>
+        <a href="planets.html" class="font-heading text-sm text-gray-300 hover:text-purple-400 transition-colors">Planets</a>
+        <a href="quiz.html"    class="font-heading text-sm text-gray-300 hover:text-purple-400 transition-colors">Quiz</a>
+        <a href="about.html"   class="nav-link-active font-heading text-sm font-bold" aria-current="page">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ======================================================
+       MAIN CONTENT
+  ====================================================== -->
+  <main class="pt-28 pb-24 px-4 md:px-8">
+    <div class="max-w-4xl mx-auto">
+
+      <!-- Page header -->
+      <header class="text-center mb-16 fade-in-up delay-1">
+        <h1 class="font-heading text-4xl md:text-5xl font-black text-white glow-heading mb-4">About This Project</h1>
+        <p class="text-gray-400 max-w-xl mx-auto leading-relaxed">
+          A deep dive into how Space Explorer was designed and built — from code architecture
+          to the design decisions that bring the cosmos to life in your browser.
+        </p>
+      </header>
+
+      <!-- ======================================================
+           SECTION 1 — PROJECT VISION
+      ====================================================== -->
+      <section class="mb-14 fade-in-up delay-2" aria-labelledby="vision-heading">
+        <div class="glass-card glow-card p-6 md:p-8">
+          <h2 id="vision-heading" class="font-heading text-2xl font-bold text-white mb-4">🚀 The Vision</h2>
+          <p class="text-gray-300 leading-relaxed mb-4">
+            Space Explorer was built to make astronomy accessible and exciting. The goal: create a visually
+            immersive, interactive experience that feels like stepping into mission control — all without
+            any frameworks, build tools, or server-side dependencies beyond a CDN.
+          </p>
+          <p class="text-gray-300 leading-relaxed">
+            Every design decision was intentional. The dark space theme reduces eye strain for extended
+            sessions, the animated starfield creates depth without distraction, and the neon glow effects
+            evoke science fiction aesthetics while remaining functional and accessible.
+          </p>
+        </div>
+      </section>
+
+      <!-- ======================================================
+           SECTION 2 — HOW IT WAS BUILT
+      ====================================================== -->
+      <section class="mb-14" aria-labelledby="built-heading">
+        <h2 id="built-heading" class="font-heading text-2xl font-bold text-white glow-heading mb-8 text-center">
+          How It Was Built
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+          <!-- HTML5 Card -->
+          <article class="glass-card glow-card p-6 fade-in-up delay-1">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-11 h-11 rounded-xl flex items-center justify-center font-heading font-black text-sm"
+                   style="background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.35);color:#fb923c;">
+                H5
+              </div>
+              <h3 class="font-heading font-bold text-white">Semantic HTML5</h3>
+            </div>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              Every page uses proper semantic elements:
+              <code class="text-yellow-400">&lt;nav&gt;</code>,
+              <code class="text-yellow-400">&lt;main&gt;</code>,
+              <code class="text-yellow-400">&lt;section&gt;</code>,
+              <code class="text-yellow-400">&lt;article&gt;</code>,
+              <code class="text-yellow-400">&lt;header&gt;</code>, and
+              <code class="text-yellow-400">&lt;footer&gt;</code>.
+              ARIA attributes ensure screen-reader compatibility, and all interactive elements
+              have descriptive labels.
+            </p>
+          </article>
+
+          <!-- Tailwind Card -->
+          <article class="glass-card glow-card p-6 fade-in-up delay-2">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-11 h-11 rounded-xl flex items-center justify-center font-heading font-black text-sm"
+                   style="background:rgba(6,182,212,0.15);border:1px solid rgba(6,182,212,0.35);color:#22d3ee;">
+                TW
+              </div>
+              <h3 class="font-heading font-bold text-white">Tailwind CSS</h3>
+            </div>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              Tailwind's utility-first classes handle the responsive grid, spacing, typography, and hover
+              transitions. Loaded via CDN with a custom config that extends the theme with space-themed
+              colours and fonts. Mobile-first using
+              <code class="text-yellow-400">sm:</code>, <code class="text-yellow-400">md:</code>,
+              <code class="text-yellow-400">lg:</code> breakpoints throughout.
+            </p>
+          </article>
+
+          <!-- JavaScript Card -->
+          <article class="glass-card glow-card p-6 fade-in-up delay-3">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-11 h-11 rounded-xl flex items-center justify-center font-heading font-black text-sm"
+                   style="background:rgba(234,179,8,0.15);border:1px solid rgba(234,179,8,0.35);color:#facc15;">
+                JS
+              </div>
+              <h3 class="font-heading font-bold text-white">Vanilla JavaScript ES6+</h3>
+            </div>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              All interactivity lives in a single <code class="text-yellow-400">script.js</code>.
+              Written with arrow functions, template literals, destructuring, and
+              <code class="text-yellow-400">Array.filter()</code>. Handles: hamburger menu,
+              planet modal, quiz engine, dark mode, scroll-to-top.
+              Zero dependencies — just open in a browser.
+            </p>
+          </article>
+
+          <!-- Canvas + localStorage Card -->
+          <article class="glass-card glow-card p-6 fade-in-up delay-4">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-11 h-11 rounded-xl flex items-center justify-center font-heading font-black text-sm"
+                   style="background:rgba(168,85,247,0.15);border:1px solid rgba(168,85,247,0.35);color:#c084fc;">
+                🎨
+              </div>
+              <h3 class="font-heading font-bold text-white">Canvas API + localStorage</h3>
+            </div>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              The animated starfield uses the HTML5 Canvas API — 220 stars with individual twinkle speeds,
+              opacity oscillation via <code class="text-yellow-400">Math.sin()</code>, and slow drift via
+              <code class="text-yellow-400">requestAnimationFrame()</code>.
+              <code class="text-yellow-400">localStorage</code> persists dark-mode preference and quiz
+              high scores across sessions.
+            </p>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- ======================================================
+           SECTION 3 — TECHNOLOGY BADGES
+      ====================================================== -->
+      <section class="mb-14 text-center" aria-labelledby="tech-heading">
+        <h2 id="tech-heading" class="font-heading text-2xl font-bold text-white mb-8">Technologies Used</h2>
+        <div class="flex flex-wrap gap-3 justify-center">
+          <span class="tech-badge" style="background:rgba(249,115,22,0.12);border-color:rgba(249,115,22,0.4);color:#fb923c;">HTML5</span>
+          <span class="tech-badge" style="background:rgba(6,182,212,0.12);border-color:rgba(6,182,212,0.4);color:#22d3ee;">Tailwind CSS</span>
+          <span class="tech-badge" style="background:rgba(234,179,8,0.12);border-color:rgba(234,179,8,0.4);color:#facc15;">JavaScript ES6+</span>
+          <span class="tech-badge" style="background:rgba(168,85,247,0.12);border-color:rgba(168,85,247,0.4);color:#c084fc;">Canvas API</span>
+          <span class="tech-badge" style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.4);color:#93c5fd;">Google Fonts</span>
+          <span class="tech-badge" style="background:rgba(34,197,94,0.12);border-color:rgba(34,197,94,0.4);color:#86efac;">localStorage</span>
+          <span class="tech-badge" style="background:rgba(236,72,153,0.12);border-color:rgba(236,72,153,0.4);color:#f9a8d4;">CSS Animations</span>
+          <span class="tech-badge" style="background:rgba(99,102,241,0.12);border-color:rgba(99,102,241,0.4);color:#a5b4fc;">CSS Custom Properties</span>
+        </div>
+      </section>
+
+      <!-- ======================================================
+           SECTION 4 — WHAT I LEARNED
+      ====================================================== -->
+      <section class="mb-14" aria-labelledby="learned-heading">
+        <div class="glass-card glow-card p-6 md:p-8">
+          <h2 id="learned-heading" class="font-heading text-2xl font-bold text-white mb-7">🎓 What I Learned</h2>
+
+          <ul class="space-y-6">
+            <li class="flex items-start gap-4">
+              <span class="text-yellow-400 text-xl mt-0.5 flex-shrink-0" aria-hidden="true">✦</span>
+              <div>
+                <strong class="text-white font-semibold">Canvas API &amp; requestAnimationFrame()</strong>
+                <p class="text-gray-400 text-sm mt-1.5 leading-relaxed">
+                  Creating smooth 60fps animations without any library — managing canvas size on resize
+                  and using <code class="text-yellow-400">Math.sin()</code> to simulate natural twinkling motion.
+                </p>
+              </div>
+            </li>
+
+            <li class="flex items-start gap-4">
+              <span class="text-yellow-400 text-xl mt-0.5 flex-shrink-0" aria-hidden="true">✦</span>
+              <div>
+                <strong class="text-white font-semibold">CSS Glassmorphism</strong>
+                <p class="text-gray-400 text-sm mt-1.5 leading-relaxed">
+                  Combining <code class="text-yellow-400">backdrop-filter: blur()</code>, semi-transparent
+                  backgrounds, and subtle borders to create the "frosted glass" card effect that defines
+                  modern dark-theme UIs.
+                </p>
+              </div>
+            </li>
+
+            <li class="flex items-start gap-4">
+              <span class="text-yellow-400 text-xl mt-0.5 flex-shrink-0" aria-hidden="true">✦</span>
+              <div>
+                <strong class="text-white font-semibold">Mobile-first responsive layout with Tailwind</strong>
+                <p class="text-gray-400 text-sm mt-1.5 leading-relaxed">
+                  Tailwind's breakpoint prefixes force you to think small-first. The pattern
+                  <code class="text-yellow-400">grid-cols-1 sm:grid-cols-2 lg:grid-cols-3</code>
+                  is now instinctive for building adaptive layouts.
+                </p>
+              </div>
+            </li>
+
+            <li class="flex items-start gap-4">
+              <span class="text-yellow-400 text-xl mt-0.5 flex-shrink-0" aria-hidden="true">✦</span>
+              <div>
+                <strong class="text-white font-semibold">State management without a framework</strong>
+                <p class="text-gray-400 text-sm mt-1.5 leading-relaxed">
+                  Managing quiz state (current question, score, answered flag) with a plain JavaScript object
+                  taught me the fundamentals of UI state that frameworks like React abstract away.
+                </p>
+              </div>
+            </li>
+
+            <li class="flex items-start gap-4">
+              <span class="text-yellow-400 text-xl mt-0.5 flex-shrink-0" aria-hidden="true">✦</span>
+              <div>
+                <strong class="text-white font-semibold">CSS Radial Gradients as planet graphics</strong>
+                <p class="text-gray-400 text-sm mt-1.5 leading-relaxed">
+                  You don't always need images. Each planet is a <code class="text-yellow-400">&lt;div&gt;</code>
+                  with layered <code class="text-yellow-400">radial-gradient()</code> and
+                  <code class="text-yellow-400">repeating-linear-gradient()</code> rules creating
+                  a realistic 3D sphere illusion.
+                </p>
+              </div>
+            </li>
+
+            <li class="flex items-start gap-4">
+              <span class="text-yellow-400 text-xl mt-0.5 flex-shrink-0" aria-hidden="true">✦</span>
+              <div>
+                <strong class="text-white font-semibold">localStorage for cross-session persistence</strong>
+                <p class="text-gray-400 text-sm mt-1.5 leading-relaxed">
+                  <code class="text-yellow-400">localStorage.getItem()</code> and
+                  <code class="text-yellow-400">setItem()</code> let user preferences like dark mode
+                  and quiz high scores survive page loads and browser restarts — no server required.
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ======================================================
+           CLOSING NOTE
+      ====================================================== -->
+      <section class="text-center fade-in-up delay-5" aria-label="Closing note">
+        <div class="glass-card glow-card p-8">
+          <div class="text-5xl mb-4" aria-hidden="true">🌌</div>
+          <h2 class="font-heading text-xl font-bold text-white mb-3">Built with Curiosity</h2>
+          <p class="text-gray-400 leading-relaxed max-w-md mx-auto">
+            This project was an exploration — not just of the solar system, but of what's achievable
+            with modern web standards and zero build tools. Pure HTML, CSS, and JavaScript can still
+            build something beautiful.
+          </p>
+          <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="planets.html"
+               class="glow-btn font-heading font-bold py-3 px-8 rounded-xl text-sm text-white transition-all"
+               style="background:linear-gradient(135deg,#7c3aed,#a855f7);">
+              🪐 Explore the Planets
+            </a>
+            <a href="quiz.html"
+               class="font-heading font-bold py-3 px-8 rounded-xl text-sm text-purple-400 border border-purple-500/50 hover:bg-purple-500/10 transition-all">
+              🧠 Take the Quiz
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ======================================================
+       FOOTER
+  ====================================================== -->
+  <footer class="border-t border-purple-900/30 py-10 px-4 md:px-8 mt-8" role="contentinfo">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="text-center md:text-left">
+        <div class="font-heading font-black text-lg mb-1">
+          <span class="glow-accent">Space</span><span class="text-purple-400">Explorer</span>
+        </div>
+        <p class="text-gray-600 text-xs">Charting the cosmos, one planet at a time.</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <div class="flex gap-6 text-sm font-heading">
+          <a href="index.html"   class="text-gray-500 hover:text-purple-400 transition-colors">Home</a>
+          <a href="planets.html" class="text-gray-500 hover:text-purple-400 transition-colors">Planets</a>
+          <a href="quiz.html"    class="text-gray-500 hover:text-purple-400 transition-colors">Quiz</a>
+          <a href="about.html"   class="text-gray-500 hover:text-purple-400 transition-colors">About</a>
+        </div>
+      </nav>
+      <p class="text-gray-700 text-xs">© 2025 Space Explorer. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <button id="scrollToTop" aria-label="Scroll to top of page">▲</button>
+  <script src="script.js"></script>
+</body>
+</html>

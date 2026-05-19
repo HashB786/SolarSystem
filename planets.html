@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<!--
+  planets.html — Space Explorer Planets Page
+  Features: filter buttons (All/Inner/Outer/Dwarf), real-time search bar,
+            responsive card grid with CSS planet graphics, click-to-open modal
+            with full stats and fun fact. All interactivity via script.js.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Explore all 8 planets plus Pluto — filter, search, and click for detailed stats." />
+  <title>Space Explorer — Planets</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            space:   '#0a0a1a',
+            primary: '#7c3aed',
+            accent:  '#f59e0b',
+          },
+          fontFamily: {
+            heading: ['Orbitron', 'sans-serif'],
+            body:    ['Inter', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+</head>
+<body class="bg-space font-body text-white min-h-screen">
+
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <!-- ======================================================
+       NAVBAR
+  ====================================================== -->
+  <nav class="navbar-glass fixed top-0 left-0 right-0 z-20 px-4 md:px-8" aria-label="Main navigation">
+    <div class="max-w-7xl mx-auto flex items-center justify-between h-16">
+
+      <a href="index.html" class="font-heading font-black text-lg flex items-center gap-2" aria-label="Space Explorer — Home">
+        <span class="text-2xl" aria-hidden="true">🚀</span>
+        <span class="glow-accent">Space</span><span class="text-purple-400">Explorer</span>
+      </a>
+
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html"   class="font-heading text-sm text-gray-300 hover:text-purple-400 transition-colors font-bold">Home</a>
+        <a href="planets.html" class="nav-link-active font-heading text-sm font-bold" aria-current="page">Planets</a>
+        <a href="quiz.html"    class="font-heading text-sm text-gray-300 hover:text-purple-400 transition-colors font-bold">Quiz</a>
+        <a href="about.html"   class="font-heading text-sm text-gray-300 hover:text-purple-400 transition-colors font-bold">About</a>
+        <button class="dark-mode-toggle text-xl hover:scale-110 transition-transform" aria-label="Toggle dark/light mode">☀️</button>
+      </div>
+
+      <div class="flex md:hidden items-center gap-3">
+        <button class="dark-mode-toggle text-xl" aria-label="Toggle dark/light mode">☀️</button>
+        <button id="hamburger-btn" class="flex flex-col gap-1.5 p-2" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="hidden md:hidden pb-4 px-2">
+      <div class="glass-card p-4 mt-2 flex flex-col gap-3">
+        <a href="index.html"   class="font-heading text-sm text-gray-300 hover:text-purple-400 transition-colors">Home</a>
+        <a href="planets.html" class="nav-link-active font-heading text-sm font-bold" aria-current="page">Planets</a>
+        <a href="quiz.html"    class="font-heading text-sm text-gray-300 hover:text-purple-400 transition-colors">Quiz</a>
+        <a href="about.html"   class="font-heading text-sm text-gray-300 hover:text-purple-400 transition-colors">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ======================================================
+       MAIN CONTENT
+  ====================================================== -->
+  <main class="pt-28 pb-24 px-4 md:px-8">
+    <div class="max-w-7xl mx-auto">
+
+      <!-- Page header -->
+      <header class="text-center mb-14">
+        <h1 class="font-heading text-4xl md:text-5xl font-black text-white glow-heading mb-4">Our Solar System</h1>
+        <p class="text-gray-400 max-w-xl mx-auto leading-relaxed">
+          Explore all 8 planets plus Pluto. Filter by type, search by name,
+          then click any card to dive deeper.
+        </p>
+      </header>
+
+      <!-- Controls: search + filter -->
+      <div class="flex flex-col sm:flex-row gap-4 items-center justify-between mb-10">
+
+        <!-- Search bar -->
+        <div class="relative w-full sm:w-72">
+          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-base" aria-hidden="true">🔍</span>
+          <input
+            id="planet-search"
+            type="search"
+            placeholder="Search planets…"
+            class="w-full pl-10 pr-4 py-2.5 rounded-xl text-white placeholder-gray-500 text-sm focus:outline-none transition-colors"
+            style="background:rgba(255,255,255,0.06);border:1px solid rgba(124,58,237,0.35);"
+            aria-label="Search planets by name"
+          />
+        </div>
+
+        <!-- Filter buttons -->
+        <div class="flex gap-2 flex-wrap justify-center" role="group" aria-label="Filter by planet type">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="inner">Inner</button>
+          <button class="filter-btn" data-filter="outer">Outer</button>
+          <button class="filter-btn" data-filter="dwarf">Dwarf</button>
+        </div>
+      </div>
+
+      <!-- Planet card grid — populated by script.js -->
+      <div id="planet-grid"
+           class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+           aria-live="polite"
+           aria-label="Planet cards">
+        <!-- Loading placeholder -->
+        <div class="col-span-full text-center py-20 text-gray-600">
+          <p class="font-heading">Loading planets…</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ======================================================
+       PLANET MODAL — shown when a card is clicked
+  ====================================================== -->
+  <div id="planet-modal"
+       class="modal-backdrop hidden"
+       role="dialog"
+       aria-modal="true"
+       aria-label="Planet detail">
+    <div class="modal-content" id="modal-body">
+      <!-- Content injected by script.js openPlanetModal() -->
+    </div>
+  </div>
+
+  <!-- ======================================================
+       FOOTER
+  ====================================================== -->
+  <footer class="border-t border-purple-900/30 py-10 px-4 md:px-8" role="contentinfo">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="text-center md:text-left">
+        <div class="font-heading font-black text-lg mb-1">
+          <span class="glow-accent">Space</span><span class="text-purple-400">Explorer</span>
+        </div>
+        <p class="text-gray-600 text-xs">Charting the cosmos, one planet at a time.</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <div class="flex gap-6 text-sm font-heading">
+          <a href="index.html"   class="text-gray-500 hover:text-purple-400 transition-colors">Home</a>
+          <a href="planets.html" class="text-gray-500 hover:text-purple-400 transition-colors">Planets</a>
+          <a href="quiz.html"    class="text-gray-500 hover:text-purple-400 transition-colors">Quiz</a>
+          <a href="about.html"   class="text-gray-500 hover:text-purple-400 transition-colors">About</a>
+        </div>
+      </nav>
+      <p class="text-gray-700 text-xs">© 2025 Space Explorer. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <button id="scrollToTop" aria-label="Scroll to top of page">▲</button>
+  <script src="script.js"></script>
+</body>
+</html>
