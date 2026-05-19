@@ -7,6 +7,9 @@
 ===================================================== */
 
 /* === BASE === */
+:root {
+  color-scheme: dark;
+}
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
@@ -184,18 +187,16 @@ body::before {
 }
 
 .planet-asteroid {
-  background: radial-gradient(circle at 32% 28%,
-    #e0d8d0 0%,
-    #c8b8a8 15%,
-    #b0a090 28%,
-    #988878 40%,
-    #907868 50%,
-    #a08878 58%,
-    #887060 68%,
-    #786050 78%,
-    #685848 88%,
-    #584838 100%
+  background: repeating-conic-gradient(
+    #907868 0%, #907868 2%, transparent 2%, transparent 4%,
+    #b0a090 4%, #b0a090 7%, transparent 7%, transparent 9%,
+    #786050 9%, #786050 11%, transparent 11%, transparent 15%,
+    #a08878 15%, #a08878 17%, transparent 17%, transparent 20%,
+    #685848 20%, #685848 23%, transparent 23%, transparent 26%
   );
+  -webkit-mask-image: radial-gradient(circle, transparent 40%, black 46%, black 65%, transparent 72%);
+  mask-image: radial-gradient(circle, transparent 40%, black 46%, black 65%, transparent 72%);
+  box-shadow: none; /* Removed the default sphere shadow for the ring */
 }
 
 /* Saturn ring wrapper */

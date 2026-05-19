@@ -264,10 +264,13 @@ function AsteroidBelt({ onSelect }) {
       const angle  = sr(i * 7.31) * Math.PI * 2;
       const radius = innerR + sr(i * 3.17) * (outerR - innerR);
       const height = (sr(i * 11.9) - 0.5) * 1.4;
-      const size   = 0.06 + sr(i * 5.53) * 0.22;
+      const size   = 0.05 + sr(i * 5.53) * 0.25;
       const shade  = Math.floor(80 + sr(i * 2.7) * 80);
       const color  = `rgb(${shade},${Math.floor(shade * 0.88)},${Math.floor(shade * 0.74)})`;
-      list.push({ angle, radius, height, size, color });
+      const rotX   = sr(i * 1.1) * Math.PI;
+      const rotY   = sr(i * 2.2) * Math.PI;
+      const rotZ   = sr(i * 3.3) * Math.PI;
+      list.push({ angle, radius, height, size, color, rotX, rotY, rotZ });
     }
     return list;
   }, []);
@@ -304,8 +307,9 @@ function AsteroidBelt({ onSelect }) {
             r.height,
             Math.sin(r.angle) * r.radius,
           ]}
+          rotation={[r.rotX, r.rotY, r.rotZ]}
         >
-          <sphereGeometry args={[r.size, 5, 4]} />
+          <dodecahedronGeometry args={[r.size, 0]} />
           <meshStandardMaterial color={r.color} roughness={0.95} metalness={0.05} />
         </mesh>
       ))}
