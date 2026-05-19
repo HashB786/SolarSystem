@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, MousePointer, ZoomIn, RotateCcw } from 'lucide-react';
 import SolarSystemViewer from '../components/SolarSystemViewer';
 import PlanetGraphic from '../components/PlanetGraphic';
+import ExitButton from '../components/ExitButton';
 
 const STAT_ROWS = [
   ['Diameter',     p => p.diameter],
@@ -41,6 +42,8 @@ export default function SolarSystem() {
     >
       {/* ── 3D Canvas ── */}
       <SolarSystemViewer onPlanetSelect={setSelected} />
+      
+      <ExitButton />
 
       {/* ── Title overlay (top-left) ── */}
       <div

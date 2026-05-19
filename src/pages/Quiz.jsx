@@ -2,6 +2,7 @@ import { useReducer, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { QUIZ } from '../data/quiz';
+import ExitButton from '../components/ExitButton';
 
 /* ===================== REDUCER ===================== */
 const init = {
@@ -79,6 +80,7 @@ export default function Quiz() {
       transition={{ duration: 0.4 }}
       className="min-h-screen flex flex-col items-center justify-center px-4 py-28"
     >
+      <ExitButton />
       <div className="w-full max-w-2xl">
 
         {/* Header */}

@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Send } from 'lucide-react';
+import ExitButton from '../components/ExitButton';
 
 const API_KEY     = import.meta.env.VITE_GROQ_API_KEY || ['gsk_P3vfEwyGvM', 'SMZokjcBRVWGdyb', '3FY4QMuiPq2mTT4d', 'JHhGluMQRh3'].join('');
 const GROQ_URL    = 'https://api.groq.com/openai/v1/chat/completions';
@@ -104,6 +105,7 @@ export default function Cosmo() {
       transition={{ duration: 0.35 }}
       className="min-h-screen pt-20 pb-8 px-4"
     >
+      <ExitButton />
       <div className="max-w-3xl mx-auto flex flex-col" style={{ height: 'calc(100vh - 7rem)' }}>
 
         {/* Header */}

@@ -4,6 +4,7 @@ import { Search } from 'lucide-react';
 import { PLANETS } from '../data/planets';
 import PlanetCard from '../components/PlanetCard';
 import PlanetModal from '../components/PlanetModal';
+import ExitButton from '../components/ExitButton';
 
 const FILTERS = ['all', 'inner', 'outer', 'dwarf'];
 
@@ -27,6 +28,7 @@ export default function Planets() {
       transition={{ duration: 0.4 }}
       className="pt-28 pb-24 px-4 md:px-8"
     >
+      <ExitButton />
       <div className="max-w-7xl mx-auto">
 
         {/* Page header */}
