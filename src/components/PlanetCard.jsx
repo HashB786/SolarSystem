@@ -6,6 +6,8 @@ const BADGE = {
   inner: 'badge-inner',
   outer: 'badge-outer',
   dwarf: 'badge-dwarf',
+  star:  'badge-star',
+  belt:  'badge-belt',
 };
 
 const PlanetCard = React.forwardRef(({ planet, onClick, index }, ref) => {
@@ -54,5 +56,6 @@ const PlanetCard = React.forwardRef(({ planet, onClick, index }, ref) => {
       </div>
     </motion.article>
   );
-}
+});
+
 export default PlanetCard;

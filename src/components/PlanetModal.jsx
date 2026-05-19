@@ -7,6 +7,16 @@ const BADGE = {
   inner: 'badge-inner',
   outer: 'badge-outer',
   dwarf: 'badge-dwarf',
+  star:  'badge-star',
+  belt:  'badge-belt',
+};
+
+const TYPE_LABEL = {
+  inner: 'Inner Planet',
+  outer: 'Outer Planet',
+  dwarf: 'Dwarf Planet',
+  star:  'Star',
+  belt:  'Asteroid Belt',
 };
 
 const STATS = [
@@ -63,7 +73,7 @@ export default function PlanetModal({ planet, onClose }) {
                 {planet.name}
               </h2>
               <span className={`badge ${BADGE[planet.type]} mt-2`}>
-                {typeLabel} Planet
+                {TYPE_LABEL[planet.type] || planet.type}
               </span>
             </div>
             <motion.button

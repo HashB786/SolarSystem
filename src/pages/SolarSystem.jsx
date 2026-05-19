@@ -19,7 +19,8 @@ const STAT_ROWS = [
   ['Gravity',      p => p.gravity],
 ];
 
-const BADGE_CLASS = { inner: 'badge-inner', outer: 'badge-outer', dwarf: 'badge-dwarf' };
+const BADGE_CLASS = { inner: 'badge-inner', outer: 'badge-outer', dwarf: 'badge-dwarf', star: 'badge-star', belt: 'badge-belt' };
+const TYPE_LABEL  = { inner: 'Inner Planet', outer: 'Outer Planet', dwarf: 'Dwarf Planet', star: 'Star', belt: 'Asteroid Belt' };
 
 export default function SolarSystem() {
   const [selected, setSelected] = useState(null);
@@ -132,7 +133,7 @@ export default function SolarSystem() {
                 </h2>
                 <div className="flex justify-center mb-5">
                   <span className={`badge ${BADGE_CLASS[selected.type]}`}>
-                    {selected.type.charAt(0).toUpperCase() + selected.type.slice(1)} Planet
+                    {TYPE_LABEL[selected.type] || selected.type}
                   </span>
                 </div>
 

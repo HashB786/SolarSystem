@@ -92,64 +92,82 @@ body::before {
 .planet-base {
   border-radius: 50%;
   box-shadow:
-    inset -12px -8px 24px rgba(0,0,0,0.7),
-    inset 8px 8px 20px rgba(255,255,255,0.14),
-    0 0 18px rgba(0,0,0,0.4);
+    inset -8px -6px 16px rgba(0,0,0,0.45),
+    inset 6px 6px 14px rgba(255,255,255,0.13),
+    0 0 10px rgba(0,0,0,0.3);
   flex-shrink: 0;
 }
 
 .planet-mercury {
-  background: radial-gradient(circle at 35% 35%, #c0c0c0, #808080 45%, #4a4a4a 75%, #2a2a2a);
+  background: radial-gradient(circle at 35% 35%, #d8d8d8, #a0a0a0 40%, #686868 72%, #484848);
 }
 
 .planet-venus {
-  background: radial-gradient(circle at 35% 35%, #f9e4b7, #e6b84a 40%, #c8960c 65%, #9b720a);
+  background: radial-gradient(circle at 35% 35%, #fff4d0, #f0c850 38%, #d4980a 62%, #b07808);
 }
 
 .planet-earth {
   background:
-    radial-gradient(circle at 35% 35%, rgba(255,255,255,0.15) 0%, transparent 35%),
-    radial-gradient(circle at 35% 35%, #87ceeb, #1a6ab1 30%, #2d8a4e 52%, #1a6ab1 68%, #0d4a8a);
+    radial-gradient(circle at 35% 35%, rgba(255,255,255,0.18) 0%, transparent 35%),
+    radial-gradient(circle at 35% 35%, #90d8f0, #1a80c8 28%, #2d9050 50%, #1a6ab1 68%, #1050a0);
 }
 
 .planet-mars {
-  background: radial-gradient(circle at 35% 35%, #f4a46a, #c0441a 40%, #8b2500 70%, #5a1800);
+  background: radial-gradient(circle at 35% 35%, #f8b888, #cc5020 38%, #962808 65%, #6a1808);
 }
 
 .planet-jupiter {
-  background:
-    radial-gradient(circle at 35% 35%, rgba(255,255,255,0.18) 0%, transparent 38%),
-    repeating-linear-gradient(
-      180deg,
-      transparent 0px, transparent 9px,
-      rgba(160,80,30,0.45) 9px, rgba(160,80,30,0.45) 13px,
-      transparent 13px, transparent 22px
-    ),
-    radial-gradient(circle at 40% 40%, #f5cba7, #d4863c 35%, #a05010 60%, #6b3008);
+  background: radial-gradient(
+    circle at 35% 35%,
+    #f8d8b0 0%,
+    #e8a860 18%,
+    #d07830 32%,
+    #e89858 42%,
+    #c87038 54%,
+    #e0a060 64%,
+    #c88040 75%,
+    #b86020 85%,
+    #a05018 100%
+  );
 }
 
 .planet-saturn {
-  background:
-    radial-gradient(circle at 35% 35%, rgba(255,255,255,0.15) 0%, transparent 38%),
-    repeating-linear-gradient(
-      180deg,
-      transparent 0px, transparent 11px,
-      rgba(140,90,10,0.35) 11px, rgba(140,90,10,0.35) 15px,
-      transparent 15px, transparent 24px
-    ),
-    radial-gradient(circle at 40% 40%, #f8e7c5, #d4a853 38%, #a07020 62%, #7a5010);
+  background: radial-gradient(
+    circle at 35% 35%,
+    #fff8e0 0%,
+    #f0d870 18%,
+    #d8b040 34%,
+    #e8c860 46%,
+    #c89830 58%,
+    #dab848 70%,
+    #c0902a 82%,
+    #a87018 100%
+  );
 }
 
 .planet-uranus {
-  background: radial-gradient(circle at 35% 35%, #c8f0f5, #5dd0e0 40%, #20a8c0 68%, #106880);
+  background: radial-gradient(circle at 35% 35%, #d8f8ff, #70d8e8 38%, #28b0c8 64%, #108898);
 }
 
 .planet-neptune {
-  background: radial-gradient(circle at 35% 35%, #a0c8f8, #2878e0 38%, #1050b8 62%, #082888);
+  background: radial-gradient(circle at 35% 35%, #b0d0ff, #3080e8 36%, #1458c0 60%, #0a3898);
 }
 
 .planet-pluto {
-  background: radial-gradient(circle at 35% 35%, #ddd0c8, #b08878 40%, #806050 65%, #503828);
+  background: radial-gradient(circle at 35% 35%, #e8d8c8, #c0a088 38%, #907060 64%, #604840);
+}
+
+.planet-sun {
+  background: radial-gradient(circle at 38% 35%, #fffad0, #ffe060 25%, #ffa820 50%, #ff7000 72%, #e03000 90%);
+  box-shadow:
+    inset -6px -5px 14px rgba(0,0,0,0.2),
+    inset 5px 5px 12px rgba(255,240,160,0.5),
+    0 0 22px rgba(255,160,0,0.7),
+    0 0 42px rgba(255,80,0,0.35);
+}
+
+.planet-asteroid {
+  background: radial-gradient(circle at 38% 35%, #c0b0a0, #908070 40%, #686050 65%, #484038);
 }
 
 /* Saturn ring wrapper */
@@ -186,6 +204,8 @@ body::before {
 .badge-inner { background: rgba(239,68,68,0.18);  border: 1px solid rgba(239,68,68,0.4);  color: #fca5a5; }
 .badge-outer { background: rgba(59,130,246,0.18);  border: 1px solid rgba(59,130,246,0.4);  color: #93c5fd; }
 .badge-dwarf { background: rgba(245,158,11,0.18);  border: 1px solid rgba(245,158,11,0.4);  color: #fcd34d; }
+.badge-star  { background: rgba(251,191,36,0.22);  border: 1px solid rgba(251,191,36,0.55); color: #fde68a; }
+.badge-belt  { background: rgba(120,113,108,0.22); border: 1px solid rgba(120,113,108,0.5); color: #d6d3d1; }
 
 /* === STAT CHIPS === */
 .stat-chip {

@@ -1,12 +1,15 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search } from 'lucide-react';
-import { PLANETS } from '../data/planets';
+import { PLANETS, SUN, ASTEROID_BELT } from '../data/planets';
 import PlanetCard from '../components/PlanetCard';
 import PlanetModal from '../components/PlanetModal';
 import ExitButton from '../components/ExitButton';
 
-const FILTERS = ['all', 'inner', 'outer', 'dwarf'];
+const FILTERS = ['all', 'inner', 'outer', 'dwarf', 'star', 'belt'];
+
+// Special objects shown outside the filter (always at start/between)
+const ALL_OBJECTS = [SUN, ...PLANETS.slice(0,4), ASTEROID_BELT, ...PLANETS.slice(4)];
 
 export default function Planets() {
   const [filter,   setFilter]   = useState('all');
@@ -14,7 +17,7 @@ export default function Planets() {
   const [selected, setSelected] = useState(null);
 
   const visible = useMemo(() => {
-    let list = PLANETS;
+    let list = ALL_OBJECTS;
     if (filter !== 'all') list = list.filter(p => p.type === filter);
     if (query.trim())     list = list.filter(p => p.name.toLowerCase().includes(query.toLowerCase()));
     return list;

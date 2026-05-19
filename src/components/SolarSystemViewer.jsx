@@ -9,6 +9,7 @@ import { OrbitControls, Stars, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { DoubleSide } from 'three';
 import { PLANETS } from '../data/planets';
+import { SUN, ASTEROID_BELT } from '../data/planets';
 
 /* ── 3D-specific properties (same order as PLANETS) ── */
 const PROPS_3D = [
@@ -194,19 +195,25 @@ function generatePlanetTexture(name) {
 }
 
 /* ── Sun ── */
-function Sun() {
+function Sun({ onSelect }) {
   const meshRef = useRef();
+  const [hovered, setHovered] = useState(false);
   useFrame(({ clock }) => {
     meshRef.current.rotation.y = clock.getElapsedTime() * 0.05;
   });
   return (
     <group>
-      <mesh ref={meshRef}>
+      <mesh
+        ref={meshRef}
+        onPointerOver={(e) => { e.stopPropagation(); setHovered(true); document.body.style.cursor = 'pointer'; }}
+        onPointerOut={() => { setHovered(false); document.body.style.cursor = 'auto'; }}
+        onClick={(e) => { e.stopPropagation(); onSelect(SUN); }}
+      >
         <sphereGeometry args={[4, 64, 64]} />
         <meshStandardMaterial
           color="#FDB813"
           emissive="#FF8800"
-          emissiveIntensity={1.8}
+          emissiveIntensity={hovered ? 2.5 : 1.8}
           roughness={1}
           metalness={0}
         />
@@ -220,6 +227,17 @@ function Sun() {
         <meshBasicMaterial color="#FF6600" transparent opacity={0.05} />
       </mesh>
       <pointLight intensity={5} color="#FFF8E0" decay={1} distance={500} />
+      {hovered && (
+        <Html center position={[0, 6, 0]} style={{ pointerEvents: 'none', userSelect: 'none' }}>
+          <div style={{
+            fontFamily: 'Orbitron, sans-serif', fontSize: '12px', fontWeight: '700',
+            color: '#ffffff', background: 'rgba(255,140,0,0.88)',
+            padding: '3px 10px', borderRadius: '20px',
+            border: '1px solid rgba(255,180,0,0.6)', whiteSpace: 'nowrap',
+            boxShadow: '0 0 12px rgba(255,140,0,0.6)',
+          }}>The Sun</div>
+        </Html>
+      )}
     </group>
   );
 }
@@ -231,6 +249,38 @@ function OrbitPath({ radius }) {
       <ringGeometry args={[radius - 0.04, radius + 0.04, 128]} />
       <meshBasicMaterial color="#ffffff" transparent opacity={0.1} side={DoubleSide} />
     </mesh>
+  );
+}
+
+/* ── Asteroid Belt ── */
+function AsteroidBelt({ onSelect }) {
+  const [hovered, setHovered] = useState(false);
+  const innerR = 25.5, outerR = 30.5;
+  return (
+    <group rotation={[-Math.PI / 2, 0, 0]}>
+      <mesh
+        onPointerOver={(e) => { e.stopPropagation(); setHovered(true); document.body.style.cursor = 'pointer'; }}
+        onPointerOut={() => { setHovered(false); document.body.style.cursor = 'auto'; }}
+        onClick={(e) => { e.stopPropagation(); onSelect(ASTEROID_BELT); }}
+      >
+        <ringGeometry args={[innerR, outerR, 128]} />
+        <meshBasicMaterial color={hovered ? '#d0c090' : '#a09070'} transparent opacity={hovered ? 0.55 : 0.38} side={DoubleSide} />
+      </mesh>
+      <mesh>
+        <ringGeometry args={[innerR + 1, outerR - 1, 128]} />
+        <meshBasicMaterial color="#c0a870" transparent opacity={0.18} side={DoubleSide} />
+      </mesh>
+      {hovered && (
+        <Html center position={[0, -29, 1]} style={{ pointerEvents: 'none', userSelect: 'none', transform: 'rotate(90deg)' }}>
+          <div style={{
+            fontFamily: 'Orbitron, sans-serif', fontSize: '12px', fontWeight: '700',
+            color: '#ffffff', background: 'rgba(100,80,40,0.9)',
+            padding: '3px 10px', borderRadius: '20px',
+            border: '1px solid rgba(180,150,80,0.6)', whiteSpace: 'nowrap',
+          }}>Asteroid Belt</div>
+        </Html>
+      )}
+    </group>
   );
 }
 
@@ -328,10 +378,11 @@ export default function SolarSystemViewer({ onPlanetSelect }) {
         <Stars radius={200} depth={70} count={6000} factor={3.5} saturation={0} fade speed={0.5} />
 
         <Suspense fallback={null}>
-          <Sun />
+          <Sun onSelect={onPlanetSelect} />
           {SOLAR_PLANETS.map(p => (
             <OrbitPath key={`orbit-${p.name}`} radius={p.oRadius} />
           ))}
+          <AsteroidBelt onSelect={onPlanetSelect} />
           {SOLAR_PLANETS.map(p => (
             <Planet key={p.name} data={p} onSelect={onPlanetSelect} />
           ))}

@@ -118,3 +118,31 @@ export const PLANETS = [
     funFact:     "Pluto's largest moon Charon is so big that they orbit a shared point in space — making them a true binary system!",
   },
 ];
+
+export const SUN = {
+  name:        'The Sun',
+  type:        'star',
+  color:       'sun',
+  diameter:    '1,392,700 km',
+  moons:       'N/A',
+  distance:    '0 km (centre)',
+  temp:        '5,500°C surface / 15M°C core',
+  orbitPeriod: 'N/A',
+  gravity:     '274 m/s²',
+  description: 'Our star and the gravitational anchor of the solar system. A G-type main-sequence star containing 99.86% of the solar system\'s total mass, the Sun fuses 620 million tonnes of hydrogen into helium every second inside its core.',
+  funFact:     'Light leaving the Sun\'s surface takes 8 minutes 20 seconds to reach Earth — but that same light spent up to 100,000 years travelling from the core to the surface first!',
+};
+
+export const ASTEROID_BELT = {
+  name:        'Asteroid Belt',
+  type:        'belt',
+  color:       'asteroid',
+  diameter:    '~555M km (span)',
+  moons:       'N/A',
+  distance:    '329M – 479M km',
+  temp:        '−73°C avg',
+  orbitPeriod: '3 – 6 years (typical)',
+  gravity:     'Varies per body',
+  description: 'A vast region between Mars and Jupiter packed with millions of rocky and metallic bodies left over from the solar system\'s formation. Despite its size, the total mass of all asteroids combined is less than 4% of the Moon\'s mass. Ceres, a dwarf planet, is its largest resident.',
+  funFact:     'Despite what movies suggest, flying through the asteroid belt is surprisingly empty — the average distance between asteroids is about 1 million km, so spacecraft pass through without incident!',
+};
