@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Sun, Moon } from 'lucide-react';
-import { useDarkMode } from '../context/DarkModeContext';
+import { Menu, X } from 'lucide-react';
 
 const LINKS = [
   { to: '/',             label: 'Home' },
@@ -20,7 +19,6 @@ const navLinkClass = ({ isActive }) =>
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { isDark, toggle }      = useDarkMode();
 
   return (
     <nav
@@ -47,32 +45,10 @@ export default function Navbar() {
               {label}
             </NavLink>
           ))}
-          <motion.button
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={toggle}
-            className="text-xl ml-2"
-            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-          >
-            {isDark
-              ? <Sun size={20} className="text-yellow-400" />
-              : <Moon size={20} className="text-purple-400" />
-            }
-          </motion.button>
         </div>
 
         {/* Mobile controls */}
         <div className="flex lg:hidden items-center gap-3">
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            onClick={toggle}
-            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-          >
-            {isDark
-              ? <Sun size={18} className="text-yellow-400" />
-              : <Moon size={18} className="text-purple-400" />
-            }
-          </motion.button>
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={() => setMenuOpen(o => !o)}

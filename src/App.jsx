@@ -1,6 +1,5 @@
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import { DarkModeProvider } from './context/DarkModeContext';
 import Starfield from './components/Starfield';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -36,15 +35,13 @@ function AnimatedRoutes() {
 
 export default function App() {
   return (
-    <DarkModeProvider>
-      <HashRouter>
-        <StarfieldConditional />
-        <Navbar />
-        <ScrollToTopOnNavigate />
-        <AnimatedRoutes />
-        <ScrollToTopButton />
-      </HashRouter>
-    </DarkModeProvider>
+    <HashRouter>
+      <StarfieldConditional />
+      <Navbar />
+      <ScrollToTopOnNavigate />
+      <AnimatedRoutes />
+      <ScrollToTopButton />
+    </HashRouter>
   );
 }
 

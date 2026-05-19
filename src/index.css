@@ -319,18 +319,6 @@ body::before {
 ::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.5); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(124,58,237,0.82); }
 
-/* === LIGHT MODE === */
-html.light-mode body { background-color: #f0f0ff; color: #1a1a2e; }
-html.light-mode body::before { opacity: 0.4; }
-html.light-mode .navbar-glass { background: rgba(240,240,255,0.92); }
-html.light-mode .glass {
-  background: rgba(255,255,255,0.65);
-  border-color: rgba(124,58,237,0.3);
-}
-html.light-mode .glass:hover { background: rgba(255,255,255,0.8); }
-html.light-mode .stat-chip { background: rgba(0,0,0,0.06); border-color: rgba(0,0,0,0.12); color: #444; }
-html.light-mode .quiz-option { background: rgba(255,255,255,0.6); color: #1a1a2e; }
-
 /* Content above the fixed starfield canvas */
 nav, footer { position: relative; z-index: 2; }
 main { z-index: 1; }
