@@ -25,6 +25,18 @@ const PROPS_3D = [
 
 export const SOLAR_PLANETS = PLANETS.map((p, i) => ({ ...p, ...PROPS_3D[i] }));
 
+const PLANET_HEX = {
+  mercury: '#c0c0c0',
+  venus: '#f9e4b7',
+  earth: '#1a6ab1',
+  mars: '#f4a46a',
+  jupiter: '#d4863c',
+  saturn: '#f8e7c5',
+  uranus: '#5dd0e0',
+  neptune: '#2878e0',
+  pluto: '#b08878'
+};
+
 const SPEED_BASE = 0.21;
 
 /* ── Deterministic pseudo-random (no Math.random so textures are stable) ── */
@@ -255,7 +267,7 @@ function Planet({ data, onSelect }) {
           map={texture}
           roughness={0.85}
           metalness={0.0}
-          emissive={new THREE.Color(data.color || '#ffffff')}
+          emissive={new THREE.Color(PLANET_HEX[data.color] || '#ffffff')}
           emissiveIntensity={hovered ? 0.25 : 0.02}
         />
       </mesh>

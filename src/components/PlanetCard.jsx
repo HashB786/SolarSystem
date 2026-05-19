@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 import PlanetGraphic from './PlanetGraphic';
 
@@ -7,11 +8,12 @@ const BADGE = {
   dwarf: 'badge-dwarf',
 };
 
-export default function PlanetCard({ planet, onClick, index }) {
+const PlanetCard = React.forwardRef(({ planet, onClick, index }, ref) => {
   const typeLabel = planet.type.charAt(0).toUpperCase() + planet.type.slice(1);
 
   return (
     <motion.article
+      ref={ref}
       layout
       initial={{ opacity: 0, y: 28 }}
       animate={{ opacity: 1, y: 0 }}
@@ -53,3 +55,4 @@ export default function PlanetCard({ planet, onClick, index }) {
     </motion.article>
   );
 }
+export default PlanetCard;
