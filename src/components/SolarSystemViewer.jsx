@@ -256,27 +256,68 @@ function OrbitPath({ radius }) {
 function AsteroidBelt({ onSelect }) {
   const [hovered, setHovered] = useState(false);
   const innerR = 25.5, outerR = 30.5;
+
+  // Generate 280 rock positions deterministically
+  const rocks = useMemo(() => {
+    const list = [];
+    for (let i = 0; i < 280; i++) {
+      const angle  = sr(i * 7.31) * Math.PI * 2;
+      const radius = innerR + sr(i * 3.17) * (outerR - innerR);
+      const height = (sr(i * 11.9) - 0.5) * 1.4;
+      const size   = 0.06 + sr(i * 5.53) * 0.22;
+      const shade  = Math.floor(80 + sr(i * 2.7) * 80);
+      const color  = `rgb(${shade},${Math.floor(shade * 0.88)},${Math.floor(shade * 0.74)})`;
+      list.push({ angle, radius, height, size, color });
+    }
+    return list;
+  }, []);
+
   return (
-    <group rotation={[-Math.PI / 2, 0, 0]}>
+    <group>
+      {/* Invisible click target covering the whole belt */}
       <mesh
+        rotation={[-Math.PI / 2, 0, 0]}
         onPointerOver={(e) => { e.stopPropagation(); setHovered(true); document.body.style.cursor = 'pointer'; }}
         onPointerOut={() => { setHovered(false); document.body.style.cursor = 'auto'; }}
         onClick={(e) => { e.stopPropagation(); onSelect(ASTEROID_BELT); }}
       >
+        <ringGeometry args={[innerR - 0.5, outerR + 0.5, 64]} />
+        <meshBasicMaterial transparent opacity={0} side={DoubleSide} />
+      </mesh>
+
+      {/* Dusty haze rings */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]}>
         <ringGeometry args={[innerR, outerR, 128]} />
-        <meshBasicMaterial color={hovered ? '#d0c090' : '#a09070'} transparent opacity={hovered ? 0.55 : 0.38} side={DoubleSide} />
+        <meshBasicMaterial color={hovered ? '#c8b890' : '#a09070'} transparent opacity={hovered ? 0.22 : 0.14} side={DoubleSide} />
       </mesh>
-      <mesh>
-        <ringGeometry args={[innerR + 1, outerR - 1, 128]} />
-        <meshBasicMaterial color="#c0a870" transparent opacity={0.18} side={DoubleSide} />
+      <mesh rotation={[-Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[innerR + 0.8, outerR - 0.8, 128]} />
+        <meshBasicMaterial color="#b8a880" transparent opacity={0.09} side={DoubleSide} />
       </mesh>
+
+      {/* Scattered rocks */}
+      {rocks.map((r, i) => (
+        <mesh
+          key={i}
+          position={[
+            Math.cos(r.angle) * r.radius,
+            r.height,
+            Math.sin(r.angle) * r.radius,
+          ]}
+        >
+          <sphereGeometry args={[r.size, 5, 4]} />
+          <meshStandardMaterial color={r.color} roughness={0.95} metalness={0.05} />
+        </mesh>
+      ))}
+
       {hovered && (
-        <Html center position={[0, -29, 1]} style={{ pointerEvents: 'none', userSelect: 'none', transform: 'rotate(90deg)' }}>
+        <Html center position={[0, 2, -28]} style={{ pointerEvents: 'none', userSelect: 'none' }}>
           <div style={{
             fontFamily: 'Orbitron, sans-serif', fontSize: '12px', fontWeight: '700',
-            color: '#ffffff', background: 'rgba(100,80,40,0.9)',
+            color: '#ffffff', background: 'rgba(100,80,40,0.92)',
             padding: '3px 10px', borderRadius: '20px',
-            border: '1px solid rgba(180,150,80,0.6)', whiteSpace: 'nowrap',
+            border: '1px solid rgba(180,150,80,0.7)', whiteSpace: 'nowrap',
+            boxShadow: '0 0 10px rgba(160,130,60,0.5)',
           }}>Asteroid Belt</div>
         </Html>
       )}

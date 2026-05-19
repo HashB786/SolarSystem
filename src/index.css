@@ -91,83 +91,111 @@ body::before {
 /* === PLANET GRAPHICS (pure CSS, no images) === */
 .planet-base {
   border-radius: 50%;
-  box-shadow:
-    inset -8px -6px 16px rgba(0,0,0,0.45),
-    inset 6px 6px 14px rgba(255,255,255,0.13),
-    0 0 10px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.5);
   flex-shrink: 0;
 }
 
+/* The 3D sphere effect comes entirely from the gradient:
+   highlight colour at ~30%,28% fading to a medium-dark rim.
+   No inset shadows — they were causing the black-spot artifact. */
+
 .planet-mercury {
-  background: radial-gradient(circle at 35% 35%, #d8d8d8, #a0a0a0 40%, #686868 72%, #484848);
+  background: radial-gradient(circle at 32% 28%,
+    #f0f0f0 0%, #d0d0d0 20%, #b0b0b0 40%, #909090 60%, #707070 80%, #585858 100%
+  );
 }
 
 .planet-venus {
-  background: radial-gradient(circle at 35% 35%, #fff4d0, #f0c850 38%, #d4980a 62%, #b07808);
+  background: radial-gradient(circle at 32% 28%,
+    #fffff0 0%, #f8e890 18%, #f0d060 35%, #d8a820 52%, #b88010 70%, #a07010 100%
+  );
 }
 
 .planet-earth {
-  background:
-    radial-gradient(circle at 35% 35%, rgba(255,255,255,0.18) 0%, transparent 35%),
-    radial-gradient(circle at 35% 35%, #90d8f0, #1a80c8 28%, #2d9050 50%, #1a6ab1 68%, #1050a0);
+  background: radial-gradient(circle at 32% 28%,
+    #d0f4ff 0%, #60c8f0 14%, #1880c8 28%, #287840 42%,
+    #1870b8 56%, #1060a8 72%, #0a4888 100%
+  );
 }
 
 .planet-mars {
-  background: radial-gradient(circle at 35% 35%, #f8b888, #cc5020 38%, #962808 65%, #6a1808);
+  background: radial-gradient(circle at 32% 28%,
+    #ffd8b0 0%, #f0a070 18%, #e06830 35%, #c04818 52%, #a03010 70%, #802010 100%
+  );
 }
 
 .planet-jupiter {
-  background: radial-gradient(
-    circle at 35% 35%,
-    #f8d8b0 0%,
-    #e8a860 18%,
-    #d07830 32%,
-    #e89858 42%,
-    #c87038 54%,
-    #e0a060 64%,
-    #c88040 75%,
-    #b86020 85%,
-    #a05018 100%
+  background: radial-gradient(circle at 32% 28%,
+    #f8e8d0 0%,
+    #f0c898 10%,
+    #d89060 20%,
+    #e8a870 28%,
+    #c87840 36%,
+    #dfa060 44%,
+    #c07038 52%,
+    #d89858 60%,
+    #b86830 68%,
+    #c88848 76%,
+    #a86028 84%,
+    #986020 100%
   );
 }
 
 .planet-saturn {
-  background: radial-gradient(
-    circle at 35% 35%,
-    #fff8e0 0%,
-    #f0d870 18%,
-    #d8b040 34%,
-    #e8c860 46%,
-    #c89830 58%,
-    #dab848 70%,
-    #c0902a 82%,
-    #a87018 100%
+  background: radial-gradient(circle at 32% 28%,
+    #fffff8 0%,
+    #f8f0b0 12%,
+    #f0d870 24%,
+    #e8c850 34%,
+    #d8b038 44%,
+    #e8c860 52%,
+    #c89830 60%,
+    #d8b848 70%,
+    #c09030 80%,
+    #a87020 100%
   );
 }
 
 .planet-uranus {
-  background: radial-gradient(circle at 35% 35%, #d8f8ff, #70d8e8 38%, #28b0c8 64%, #108898);
+  background: radial-gradient(circle at 32% 28%,
+    #f0fdff 0%, #a0eef8 18%, #58d8ec 35%, #28b8d0 55%, #10a0b8 75%, #0888a0 100%
+  );
 }
 
 .planet-neptune {
-  background: radial-gradient(circle at 35% 35%, #b0d0ff, #3080e8 36%, #1458c0 60%, #0a3898);
+  background: radial-gradient(circle at 32% 28%,
+    #d8eaff 0%, #80b8f8 18%, #3888f0 35%, #1868d0 55%, #0850b0 75%, #043890 100%
+  );
 }
 
 .planet-pluto {
-  background: radial-gradient(circle at 35% 35%, #e8d8c8, #c0a088 38%, #907060 64%, #604840);
+  background: radial-gradient(circle at 32% 28%,
+    #f0e8e0 0%, #d8c8b8 20%, #c0a890 38%, #a88870 55%, #907060 72%, #785848 100%
+  );
 }
 
 .planet-sun {
-  background: radial-gradient(circle at 38% 35%, #fffad0, #ffe060 25%, #ffa820 50%, #ff7000 72%, #e03000 90%);
+  background: radial-gradient(circle at 32% 28%,
+    #ffffff 0%, #fff8d8 8%, #ffe870 20%, #ffc030 38%, #ffa020 55%, #ff6800 72%, #e83800 90%
+  );
   box-shadow:
-    inset -6px -5px 14px rgba(0,0,0,0.2),
-    inset 5px 5px 12px rgba(255,240,160,0.5),
-    0 0 22px rgba(255,160,0,0.7),
-    0 0 42px rgba(255,80,0,0.35);
+    0 0 24px rgba(255,160,0,0.8),
+    0 0 50px rgba(255,80,0,0.4);
 }
 
 .planet-asteroid {
-  background: radial-gradient(circle at 38% 35%, #c0b0a0, #908070 40%, #686050 65%, #484038);
+  background: radial-gradient(circle at 32% 28%,
+    #e0d8d0 0%,
+    #c8b8a8 15%,
+    #b0a090 28%,
+    #988878 40%,
+    #907868 50%,
+    #a08878 58%,
+    #887060 68%,
+    #786050 78%,
+    #685848 88%,
+    #584838 100%
+  );
 }
 
 /* Saturn ring wrapper */
